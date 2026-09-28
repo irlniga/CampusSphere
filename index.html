@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ISUFST San Enrique Campus — Meet the Campus Leadership</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-deep:#0a2148; --navy-mid:#0f3e88; --navy-line:#173f80;
+  --blue-header:#124b9c; --blue-header-dark:#082c66;
+  --gold:#d4af5a; --gold-dark:#a5822f;
+  --brick:#8a6f56; --brick-dark:#6b5641;
+  --paper:#ffffff; --sky:#eaf1fb; --slate:#4c6084; --slate-dim:#7488a8;
+  --card-bg:#ffffff; --line:#dbe4f3;
+  --bg:#ffffff; --fg:#0d2a5c;
+}
+*{ box-sizing:border-box; }
+html{ scroll-padding-top:calc(72px + env(safe-area-inset-top,0px)); color-scheme:light; }
+body{
+  margin:0; background:#ffffff; color:var(--fg);
+  font-family:'Archivo',sans-serif;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+
+/* ---------- Nav ---------- */
+nav.topbar{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:14px;
+  padding:12px 22px;
+  padding-top:calc(12px + env(safe-area-inset-top,0px));
+  background:linear-gradient(160deg,var(--blue-header),var(--blue-header-dark));
+}
+.brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+.brand .mark{
+  width:38px; height:38px; border-radius:50%;
+  background:linear-gradient(150deg,var(--gold),#ffffff);
+  display:flex; align-items:center; justify-content:center;
+  flex:0 0 auto; overflow:hidden;
+}
+.brand .mark img{ width:100%; height:100%; object-fit:cover; display:block; }
+.brand .mark span{
+  font-family:'Cormorant Garamond',serif; font-weight:700; font-style:italic;
+  font-size:.95em; color:var(--navy-deep);
+}
+.brand .word{ display:flex; flex-direction:column; line-height:1.15; }
+.brand .word b{ font-size:.86em; font-weight:800; letter-spacing:.01em; color:#ffffff; }
+.brand .word small{ font-size:.62em; color:#cfe0fb; font-weight:600; letter-spacing:.06em; }
+
+.navlinks{ display:flex; align-items:center; gap:6px; position:relative; }
+.navbtn, a.navbtn{
+  font-family:inherit; font-size:.82em; font-weight:700;
+  background:none; border:none; cursor:pointer;
+  color:#ffffff; padding:9px 14px; border-radius:8px;
+  transition:background .15s ease; text-decoration:none; display:inline-block;
+}
+.navbtn:hover, .navbtn:focus-visible{ background:rgba(255,255,255,0.14); }
+.navbtn.active{ background:rgba(255,255,255,0.22); }
+.navbtn:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+/* ---------- Cover hero (gate photo) ---------- */
+header.hero{
+  position:relative;
+  text-align:center;
+  padding:96px 20px 64px;
+  background:
+    linear-gradient(180deg, rgba(8,25,55,.32) 0%, rgba(8,25,55,.58) 55%, rgba(6,20,45,.88) 100%),
+    url('cover.jpg') center 38% / cover no-repeat;
+  border-bottom:3px solid var(--gold);
+  overflow:hidden;
+}
+.eyebrow{ font-size:11px; letter-spacing:.24em; color:var(--gold); font-weight:700; margin:0 0 10px; text-shadow:0 1px 6px rgba(0,0,0,.35); }
+header.hero h1{
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600;
+  font-size:clamp(1.9em,5vw,2.9em); margin:0 0 8px; color:#ffffff;
+  text-shadow:0 2px 14px rgba(0,0,0,.45);
+}
+header.hero p.sub{ margin:0 0 18px; font-size:11px; letter-spacing:.14em; color:#eef4ff; font-weight:600; text-shadow:0 1px 6px rgba(0,0,0,.35); }
+.hero-tagline{
+  display:inline-block; margin-top:4px; padding:8px 18px;
+  border:1px solid rgba(212,175,90,.55); border-radius:999px;
+  background:rgba(8,25,55,.35); backdrop-filter:blur(2px);
+  font-size:.72em; letter-spacing:.05em; color:#f3e8cf; font-weight:600;
+}
+
+footer{
+  text-align:center; padding:30px 20px 40px;
+  background:linear-gradient(160deg,var(--blue-header),var(--blue-header-dark));
+  border-top:3px solid var(--brick);
+}
+footer p.motto{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--gold); margin:0 0 8px; }
+footer p{ margin:3px 0; font-size:11px; letter-spacing:.06em; color:#dce7fb; font-weight:600; }
+
+/* ---------- Tiered sections layout ---------- */
+main.tiers{ max-width:1000px; margin:0 auto; padding:36px 20px 60px; background:#ffffff; }
+
+.tier-section{ margin-bottom:46px; }
+.tier-section:last-child{ margin-bottom:10px; }
+
+.tier-heading-wrap{
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:20px;
+}
+.tier-heading-wrap .rule{ flex:1; height:1px; background:linear-gradient(90deg,var(--line),transparent); }
+.tier-heading-wrap .rule.rev{ background:linear-gradient(90deg,transparent,var(--line)); }
+
+h1.tier-h1{
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:700;
+  font-size:1.7em; margin:0; color:var(--navy-deep); white-space:nowrap;
+}
+h2.tier-h2{
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:700;
+  font-size:1.35em; margin:0 0 18px; color:var(--navy-mid);
+  border-left:4px solid var(--gold); padding-left:12px;
+}
+h3.tier-h3{
+  font-size:.82em; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--brick-dark); margin:0 0 12px;
+}
+
+/* card grid */
+.card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:16px; }
+.card-grid.tight{ grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; }
+
+.person-card{
+  background:#ffffff; border:1px solid var(--line); border-radius:14px;
+  padding:18px 14px; text-align:center;
+  box-shadow:0 6px 16px rgba(13,42,92,0.07);
+}
+.person-card.lead{
+  max-width:260px; margin:0 auto; padding:26px 18px;
+  border:1.5px solid var(--gold);
+  box-shadow:0 10px 24px rgba(13,42,92,0.12);
+}
+
+.avatar{ width:76px; height:76px; border-radius:50%; margin:0 auto 12px; background:linear-gradient(160deg,var(--gold),var(--navy-mid)); padding:3px; }
+.person-card.lead .avatar{ width:100px; height:100px; padding:3px; }
+.avatar-inner{ width:100%; height:100%; border-radius:50%; overflow:hidden; background:var(--sky); border:2px solid #ffffff; display:flex; align-items:center; justify-content:center; }
+.avatar-inner img{ width:100%; height:100%; object-fit:cover; display:block; }
+.avatar-inner .initials{ font-family:'Cormorant Garamond',serif; font-weight:700; font-size:1.1em; color:var(--navy-mid); display:none; }
+
+.person-card h4{ margin:0; font-size:.88em; font-weight:700; color:var(--navy-deep); line-height:1.3; }
+.person-card.lead h4{ font-size:1.05em; }
+.person-card p{ margin:4px 0 0; font-size:.72em; letter-spacing:.03em; color:var(--slate); font-weight:600; }
+
+/* small cards for CCS faculty */
+.small-card{ padding:12px 8px; }
+.small-card .avatar{ width:52px; height:52px; margin-bottom:8px; }
+.small-card h4{ font-size:.74em; }
+.small-card p{ font-size:.64em; }
+
+.dept-block{ margin-bottom:28px; }
+.dept-block:last-child{ margin-bottom:0; }
+
+/* ---------- AKWE subpages ---------- */
+.subpage-body{ max-width:640px; margin:0 auto; padding:30px 24px 60px; background:#ffffff; text-align:center; }
+.subpage-body p{ color:var(--slate); font-size:.95em; line-height:1.6; }
+.badge-large{
+  width:88px; height:88px; border-radius:50%; margin:10px auto 20px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:700; font-size:1.5em; color:#fff;
+}
+.badge-cici{ background:linear-gradient(150deg,var(--gold),var(--navy-mid)); }
+.badge-unity{ background:conic-gradient(from 200deg,#e0576b,#f2a541,#e7c93d,#59b56c,#3f8fd6,#7a5fc7,#e0576b); }
+.unity-strip{ display:flex; height:10px; border-radius:6px; overflow:hidden; margin:22px auto; max-width:340px; }
+.unity-strip span{ flex:1; }
+
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="index.html">
+    <div class="mark">
+      <img src="logo.jpg" alt="ISUFST Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <span style="display:none;">IS</span>
+    </div>
+    <div class="word"><b>ISUFST</b><small>SAN ENRIQUE CAMPUS</small></div>
+  </a>
+  <div class="navlinks">
+    <a class="navbtn active" href="index.html">Home</a>
+    <a class="navbtn" href="cici.html">AKWE</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">Iloilo State University of Fisheries Science &amp; Technology</p>
+  <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600; font-size:clamp(1.9em,5vw,2.9em); margin:0 0 8px; color:#ffffff; text-shadow:0 2px 14px rgba(0,0,0,.45);">Meet the Campus Leadership</p>
+  <p class="sub">San Enrique Campus</p>
+  <span class="hero-tagline">Est. 2026 &middot; San Enrique, Iloilo</span>
+</header>
+
+<main class="tiers">
+
+  <!-- UNIVERSITY LEVEL -->
+  <section class="tier-section">
+    <div class="tier-heading-wrap">
+      <span class="rule"></span>
+      <h1 class="tier-h1">University Level</h1>
+      <span class="rule rev"></span>
+    </div>
+    <div class="person-card lead">
+      <div class="avatar"><div class="avatar-inner">
+        <img src="1.webp" alt="Dr. Nordy D. Siason Jr. - University President" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="initials">NS</span>
+      </div></div>
+      <h4>Dr. Nordy D. Siason Jr.</h4>
+      <p>University President</p>
+    </div>
+  </section>
+
+  <!-- CAMPUS LEVEL -->
+  <section class="tier-section">
+    <h2 class="tier-h2">Campus Level</h2>
+    <div class="card-grid">
+      <div class="person-card">
+        <div class="avatar"><div class="avatar-inner">
+          <img src="2.jpg" alt="Dr. Michael B. Dizon - Campus Administrator" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="initials">MD</span>
+        </div></div>
+        <h4>Dr. Michael B. Dizon</h4>
+        <p>Campus Administrator</p>
+      </div>
+      <div class="person-card">
+        <div class="avatar"><div class="avatar-inner">
+          <img src="3.jpeg" alt="Melby P. Parreño - Administrative Officer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="initials">MP</span>
+        </div></div>
+        <h4>Melby P. Parreño</h4>
+        <p>Administrative Officer</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPARTMENT LEVEL -->
+  <section class="tier-section">
+    <h2 class="tier-h2">Department Level</h2>
+
+    <div class="dept-block">
+      <h3 class="tier-h3">college of Informatics &amp; Computing Innovations</h3>
+      <div class="card-grid" style="margin-bottom:14px;">
+        <div class="person-card">
+          <div class="avatar"><div class="avatar-inner">
+            <img src="4.jpeg" alt="Dr. Wenda D. Panes - Dean, Informatics and Computer Innovation" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="initials">WP</span>
+          </div></div>
+          <h4>Dr. Wenda D. Panes</h4>
+          <p>Dean, Informatics &amp; Computing Innovations</p>
+        </div>
+      </div>
+      <div class="card-grid tight">
+        <div class="person-card small-card">
+          <div class="avatar"><div class="avatar-inner"><img src="9.jpg" alt="Instr. Dave Allan Tagacay - Instructor" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">DT</span></div></div>
+          <h4>Instr. Dave Allan Tagacay</h4><p>Instructor</p>
+        </div>
+        <div class="person-card small-card">
+          <div class="avatar"><div class="avatar-inner"><img src="10.jpg" alt="Dr. Wenna J. Bulnes - Faculty" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">WB</span></div></div>
+          <h4>Dr. Wenna J. Bulnes</h4><p>Faculty</p>
+        </div>
+        <div class="person-card small-card">
+          <div class="avatar"><div class="avatar-inner"><img src="11.jpg" alt="Dr. Analiza G. Alingalan - Faculty" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">AA</span></div></div>
+          <h4>Dr. Analiza G. Alingalan</h4><p>Faculty</p>
+        </div>
+        <div class="person-card small-card">
+          <div class="avatar"><div class="avatar-inner"><img src="12.jpg" alt="Dr. Dythne P. Dacudao - Faculty" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">DD</span></div></div>
+          <h4>Dr. Dythne P. Dacudao</h4><p>Faculty</p>
+        </div>
+        <div class="person-card small-card">
+          <div class="avatar"><div class="avatar-inner"><img src="13.jpg" alt="Dr. Ian P. Sugatan - Faculty" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">IS</span></div></div>
+          <h4>Dr. Ian P. Sugatan</h4><p>Faculty</p>
+        </div>
+        <div class="person-card small-card">
+          <div class="avatar"><div class="avatar-inner"><img src="14.jpeg" alt="Instr. Ivan Silvestre - Instructor" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">IV</span></div></div>
+          <h4>Instr. Ivan Silvestre</h4><p>Instructor</p>
+        </div>
+        <div class="person-card small-card">
+          <div class="avatar"><div class="avatar-inner"><img src="15.jpeg" alt="Andrea Delos Santos - Staff" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">AD</span></div></div>
+          <h4>Andrea Delos Santos</h4><p>Staff</p>
+        </div>
+        
+        <div class="person-card small-card">
+          <div class="avatar"><div class="avatar-inner"><img src="16.jpeg" alt="Michael Borcillo - Staff" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">MB</span></div></div>
+          <h4>Michael Borcillo</h4><p>Staff</p>
+        </div>
+        
+         <div class="person-card small-card">
+          <div class="avatar"><div class="avatar-inner"><img src="17.jpeg" alt="Andrea Delos Santos - Staff" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">AD</span></div></div>
+          <h4>Dwayn Padernal</h4><p>Staff</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="dept-block">
+      <h3 class="tier-h3">College of Education</h3>
+      <div class="card-grid">
+        <div class="person-card">
+          <div class="avatar"><div class="avatar-inner"><img src="5.jpeg" alt="Dr. Rene T. Estomo - Dean, College of Education" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">RE</span></div></div>
+          <h4>Dr. Rene T. Estomo</h4><p>Dean, College of Education</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="dept-block">
+      <h3 class="tier-h3">College of Agriculture</h3>
+      <div class="card-grid">
+        <div class="person-card">
+          <div class="avatar"><div class="avatar-inner"><img src="6.jpeg" alt="Noli L. Gerona - Dean, College of Agriculture" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">NG</span></div></div>
+          <h4>Noli L. Gerona, PhD</h4><p>Dean, College of Agriculture</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="dept-block">
+      <h3 class="tier-h3">College of Business Management and Sustainable Development</h3>
+      <div class="card-grid">
+        <div class="person-card">
+          <div class="avatar"><div class="avatar-inner"><img src="7.jpeg" alt="Janice H. Ching - Dean, College of Management" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">JC</span></div></div>
+          <h4>Janice H. Ching</h4><p>Dean, College of business Management and Sustainable Development</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <p class="motto">Science serves the sea, technology serves the future.</p>
+  <p>Iloilo State University of Fisheries Science and Technology</p>
+  <p>San Enrique Campus &middot; Est. 2020</p>
+</footer>
+
+</body>
+</html>
