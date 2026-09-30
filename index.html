@@ -172,6 +172,214 @@ h3.tier-h3{
 </head>
 <body>
 
+<!-- ===== ISUFST LOADING SCREEN ===== -->
+<style>
+#loader{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px;transition:opacity .7s ease,visibility .7s ease}
+#loader.done{opacity:0;visibility:hidden}
+body.loading{overflow:hidden}
+#loader svg{width:min(78vw,460px);height:auto;overflow:visible}
+
+/* outlines draw, then fills fade in */
+.draw{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.4s ease forwards}
+.fill{opacity:0;animation:fadein .7s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadein{to{opacity:1}}
+
+.f-body{animation-delay:.1s}
+.f-blue{animation-delay:.7s}
+.f-head{animation-delay:.5s}
+.f-fin{animation-delay:1s}
+.f-green{animation-delay:1.1s}
+.f-red{animation-delay:1.3s}
+.f-eye{animation-delay:1.5s}
+.f-circ{animation-delay:1.7s}
+
+/* leaves sway once revealed */
+.leaf-g{transform-origin:280px 182px;animation:sway 2.6s ease-in-out 2s infinite}
+.leaf-r{transform-origin:588px 290px;animation:sway 2.6s ease-in-out 2.3s infinite reverse}
+@keyframes sway{50%{transform:rotate(-5deg)}}
+
+/* atom eye spins */
+.orbit{transform-origin:140px 265px;animation:spin 3s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* circuit nodes blink in sequence */
+.node{fill:#fff;stroke:#0f3e88;stroke-width:2;animation:blink 1.2s ease-in-out infinite}
+.node:nth-of-type(2){animation-delay:.15s}.node:nth-of-type(3){animation-delay:.3s}
+.node:nth-of-type(4){animation-delay:.45s}.node:nth-of-type(5){animation-delay:.6s}
+@keyframes blink{50%{fill:#2a86e8}}
+
+/* letters rise one by one */
+.word text{font-family:'Archivo',sans-serif;font-weight:800;font-size:170px;fill:#000;opacity:0;transform:translateY(30px);animation:rise .6s cubic-bezier(.2,.8,.2,1) forwards}
+.year{font-family:'Archivo',sans-serif;font-weight:700;font-size:26px;fill:#000;opacity:0;animation:fadein .6s ease 2.2s forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* progress bar */
+.bar{width:min(60vw,300px);height:4px;border-radius:4px;background:#dbe4f3;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,#0f3e88,#2a86e8,#d4af5a);animation:load 2.8s ease-in-out forwards}
+@keyframes load{to{width:100%}}
+
+@media (prefers-reduced-motion:reduce){
+  .draw,.fill,.word text,.year{animation-duration:.01s;animation-delay:0s}
+  .leaf-g,.leaf-r,.orbit,.node{animation:none}
+}
+
+#snd{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font:600 13px 'Archivo',sans-serif;color:#0f3e88;background:#eaf1fb;border:1px solid #dbe4f3;border-radius:999px;padding:9px 18px;cursor:pointer;animation:hint 1.6s ease-in-out infinite}
+#snd.hidden{display:none}
+@keyframes hint{50%{background:#dbe7fa}}
+</style>
+
+<div id="loader" role="status" aria-label="Loading ISUFST San Enrique Campus">
+  <svg viewBox="0 0 720 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="lb" x1="0" x2="1"><stop offset="0" stop-color="#1e6fd9"/><stop offset="1" stop-color="#4aa3f5"/></linearGradient>
+    </defs>
+
+    <!-- dark navy back / tail -->
+    <path class="draw fill f-body" fill="#0a2148" stroke="#0a2148" stroke-width="2"
+      d="M40 272C120 205 260 182 390 200C500 215 600 300 670 405C590 330 500 262 400 242C300 224 200 236 130 300C100 330 70 300 40 272Z"/>
+    <!-- head curve -->
+    <path class="fill f-head" fill="#0f3e88"
+      d="M40 272C70 335 130 380 200 376L198 340C150 335 100 305 72 262Z"/>
+    <!-- light blue lower body -->
+    <path class="fill f-blue" fill="url(#lb)"
+      d="M195 372C300 372 450 350 550 318C470 337 330 342 215 336C195 336 190 356 195 372Z"/>
+    <path class="fill f-fin" fill="#2a86e8" d="M250 378C270 388 300 392 332 386C310 372 280 368 250 378Z"/>
+
+    <!-- green leaf -->
+    <g class="leaf-g"><g class="fill f-green">
+      <path fill="#fff" stroke="#2f9e57" stroke-width="5" d="M280 182C320 165 380 150 425 155C400 178 340 190 280 182Z"/>
+      <path fill="none" stroke="#2f9e57" stroke-width="3" d="M340 172C365 168 385 163 405 158"/>
+    </g></g>
+    <!-- red leaf -->
+    <g class="leaf-r"><g class="fill f-red">
+      <path fill="#fff" stroke="#e0342f" stroke-width="5" d="M588 290C602 270 660 255 710 265C690 295 632 315 588 290Z"/>
+      <path fill="none" stroke="#e0342f" stroke-width="3" d="M630 285C655 278 680 272 700 268"/>
+    </g></g>
+
+    <!-- atom eye -->
+    <g class="fill f-eye">
+      <g class="orbit" fill="none" stroke="#111" stroke-width="3">
+        <ellipse cx="140" cy="265" rx="38" ry="14"/>
+        <ellipse cx="140" cy="265" rx="38" ry="14" transform="rotate(60 140 265)"/>
+        <ellipse cx="140" cy="265" rx="38" ry="14" transform="rotate(120 140 265)"/>
+      </g>
+      <circle cx="140" cy="265" r="13" fill="#fff" stroke="#111" stroke-width="3"/>
+      <circle cx="140" cy="265" r="7" fill="#111"/>
+    </g>
+
+    <!-- circuit gills -->
+    <g class="fill f-circ" stroke="#0f3e88" stroke-width="2" fill="none">
+      <path d="M203 282H248M203 290H252M203 298H250M203 306H246M203 314H240"/>
+      <path d="M248 282L262 270H270M252 290H268M250 298L266 306H284M246 306L260 318H276"/>
+      <circle class="node" cx="272" cy="270" r="4"/>
+      <circle class="node" cx="272" cy="290" r="4"/>
+      <circle class="node" cx="288" cy="306" r="4"/>
+      <circle class="node" cx="280" cy="318" r="4"/>
+      <circle class="node" cx="256" cy="278" r="4"/>
+    </g>
+
+    <text class="year" x="100" y="400">1957</text>
+    <text class="year" x="518" y="400">2023</text>
+
+    <g class="word">
+      <text x="100" y="545" style="animation-delay:1.9s">I</text>
+      <text x="165" y="545" style="animation-delay:2.0s">S</text>
+      <text x="270" y="545" style="animation-delay:2.1s">U</text>
+      <text x="385" y="545" style="animation-delay:2.2s">F</text>
+      <text x="470" y="545" style="animation-delay:2.3s">S</text>
+      <text x="565" y="545" style="animation-delay:2.4s">T</text>
+    </g>
+  </svg>
+  <div class="bar"><i></i></div>
+  <button id="snd" type="button">Tap to turn on sound</button>
+</div>
+
+<script>
+(function(){
+  var loader=document.getElementById('loader'), btn=document.getElementById('snd');
+  document.body.classList.add('loading');
+  var start=Date.now(), MIN=3400;
+
+  /* ---------- Sound (Web Audio, no files needed) ---------- */
+  var AC=window.AudioContext||window.webkitAudioContext, ctx=null;
+  try{ctx=new AC();}catch(e){}
+  function on(){return ctx&&ctx.state==='running';}
+
+  function tone(f,dur,type,vol,f2){
+    if(!on())return;
+    var t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();
+    o.type=type||'sine'; o.frequency.setValueAtTime(f,t);
+    if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+dur);
+    g.gain.setValueAtTime(.0001,t);
+    g.gain.exponentialRampToValueAtTime(vol||.15,t+.012);
+    g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(t); o.stop(t+dur+.05);
+  }
+  function whoosh(dur,from,to,vol){
+    if(!on())return;
+    var t=ctx.currentTime,n=Math.floor(ctx.sampleRate*dur),
+        buf=ctx.createBuffer(1,n,ctx.sampleRate),d=buf.getChannelData(0);
+    for(var i=0;i<n;i++)d[i]=Math.random()*2-1;
+    var src=ctx.createBufferSource(); src.buffer=buf;
+    var f=ctx.createBiquadFilter(); f.type='bandpass'; f.Q.value=1.2;
+    f.frequency.setValueAtTime(from,t); f.frequency.exponentialRampToValueAtTime(to,t+dur);
+    var g=ctx.createGain();
+    g.gain.setValueAtTime(.0001,t);
+    g.gain.exponentialRampToValueAtTime(vol,t+dur*.4);
+    g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    src.connect(f); f.connect(g); g.connect(ctx.destination); src.start(t);
+  }
+  function bubble(){ var f=350+Math.random()*250; tone(f,.16,'sine',.12,f*2.4); }
+
+  /* timeline synced to the CSS animation (ms) */
+  var cues=[
+    [0,    function(){whoosh(1.3,250,1800,.10);}],           // fish body draws
+    [500,  bubble],[750,bubble],
+    [1100, function(){tone(880,.5,'sine',.10);}],             // green leaf
+    [1300, function(){tone(1175,.5,'sine',.10);}],            // red leaf
+    [1500, function(){tone(400,.35,'sine',.12,1400);}],       // atom eye powers on
+    [1700, function(){tone(1200,.07,'triangle',.10);}],       // circuit blips
+    [1800, function(){tone(1500,.07,'triangle',.10);}],
+    [1900, function(){tone(1800,.07,'triangle',.10);}],
+    [2000, function(){tone(2100,.07,'triangle',.10);}]
+  ];
+  var notes=[262,330,392,494,587,659];                        // letters I S U F S T
+  notes.forEach(function(n,i){cues.push([1900+i*100,function(){tone(n,.22,'triangle',.14);}]);});
+  cues.push([2750,function(){                                 // final chord
+    [523,659,784,1047].forEach(function(f,i){setTimeout(function(){tone(f,1.3,'sine',.09);},i*60);});
+  }]);
+  cues.forEach(function(c){setTimeout(c[1],c[0]);});
+
+  /* browsers block sound until the visitor interacts, so ask once */
+  function enable(){
+    if(!ctx)return;
+    ctx.resume().then(function(){ if(on()){btn.classList.add('hidden'); bubble();} });
+  }
+  ['pointerdown','keydown','touchstart'].forEach(function(ev){
+    document.addEventListener(ev,enable,{once:true,passive:true});
+  });
+  btn.addEventListener('click',enable);
+  if(ctx){ ctx.resume().then(function(){ if(on())btn.classList.add('hidden'); }).catch(function(){}); }
+  else btn.classList.add('hidden');
+
+  /* ---------- Hide loader ---------- */
+  function hide(){
+    var wait=Math.max(0,MIN-(Date.now()-start));
+    setTimeout(function(){
+      whoosh(.7,1500,300,.08);
+      loader.classList.add('done');
+      document.body.classList.remove('loading');
+      setTimeout(function(){loader.remove();},800);
+    },wait);
+  }
+  if(document.readyState==='complete') hide(); else window.addEventListener('load',hide);
+})();
+</script>
+<!-- ===== END LOADING SCREEN ===== -->
+
+
 <nav class="topbar">
   <a class="brand" href="index.html">
     <div class="mark">
@@ -188,7 +396,7 @@ h3.tier-h3{
 
 <header class="hero">
   <p class="eyebrow">Iloilo State University of Fisheries Science &amp; Technology</p>
-  <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600; font-size:clamp(1.9em,5vw,2.9em); margin:0 0 8px; color:#ffffff; text-shadow:0 2px 14px rgba(0,0,0,.45);">Meet the Campus Leadership</p>
+  <h1>Meet the Campus Leadership</h1>
   <p class="sub">San Enrique Campus</p>
   <span class="hero-tagline">Est. 2026 &middot; San Enrique, Iloilo</span>
 </header>
@@ -199,7 +407,7 @@ h3.tier-h3{
   <section class="tier-section">
     <div class="tier-heading-wrap">
       <span class="rule"></span>
-      <h1 class="tier-h1">University Level</h1>
+      <h2 class="tier-h1">University Level</h2>
       <span class="rule rev"></span>
     </div>
     <div class="person-card lead">
@@ -240,11 +448,11 @@ h3.tier-h3{
     <h2 class="tier-h2">Department Level</h2>
 
     <div class="dept-block">
-      <h3 class="tier-h3">college of Informatics &amp; Computing Innovations</h3>
+      <h3 class="tier-h3">College of Informatics &amp; Computing Innovations</h3>
       <div class="card-grid" style="margin-bottom:14px;">
         <div class="person-card">
           <div class="avatar"><div class="avatar-inner">
-            <img src="4.jpeg" alt="Dr. Wenda D. Panes - Dean, Informatics and Computer Innovation" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <img src="4.jpeg" alt="Dr. Wenda D. Panes - Dean, Informatics and Computing Innovations" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <span class="initials">WP</span>
           </div></div>
           <h4>Dr. Wenda D. Panes</h4>
@@ -280,14 +488,12 @@ h3.tier-h3{
           <div class="avatar"><div class="avatar-inner"><img src="15.jpeg" alt="Andrea Delos Santos - Staff" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">AD</span></div></div>
           <h4>Andrea Delos Santos</h4><p>Staff</p>
         </div>
-        
         <div class="person-card small-card">
           <div class="avatar"><div class="avatar-inner"><img src="16.jpeg" alt="Michael Borcillo - Staff" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">MB</span></div></div>
           <h4>Michael Borcillo</h4><p>Staff</p>
         </div>
-        
-         <div class="person-card small-card">
-          <div class="avatar"><div class="avatar-inner"><img src="17.jpeg" alt="Andrea Delos Santos - Staff" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">AD</span></div></div>
+        <div class="person-card small-card">
+          <div class="avatar"><div class="avatar-inner"><img src="17.jpeg" alt="Dwayn Padernal - Staff" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">DP</span></div></div>
           <h4>Dwayn Padernal</h4><p>Staff</p>
         </div>
       </div>
@@ -317,8 +523,8 @@ h3.tier-h3{
       <h3 class="tier-h3">College of Business Management and Sustainable Development</h3>
       <div class="card-grid">
         <div class="person-card">
-          <div class="avatar"><div class="avatar-inner"><img src="7.jpeg" alt="Janice H. Ching - Dean, College of Management" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">JC</span></div></div>
-          <h4>Janice H. Ching</h4><p>Dean, College of business Management and Sustainable Development</p>
+          <div class="avatar"><div class="avatar-inner"><img src="7.jpeg" alt="Janice H. Ching - Dean, College of Business Management and Sustainable Development" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="initials">JC</span></div></div>
+          <h4>Janice H. Ching</h4><p>Dean, College of Business Management and Sustainable Development</p>
         </div>
       </div>
     </div>
