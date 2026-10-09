@@ -39,8 +39,6 @@ nav.topbar{
 }
 .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
 .brand .mark{
-  /* Circular logo badge, top-left. Put logo.jpg next to this file
-     to fill it — falls back to "IS" text if the image is missing. */
   width:38px; height:38px; border-radius:50%;
   background:linear-gradient(150deg,var(--gold),#ffffff);
   display:flex; align-items:center; justify-content:center;
@@ -67,8 +65,7 @@ nav.topbar{
 .navbtn:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
 
 header.hero{
-  /* Top banner with the cover photo background.
-     Put cover.jpg next to this file — it fills this whole section. */
+  /* Top banner with the cover photo background. */
   position:relative;
   text-align:center; padding:96px 20px 64px;
   background:
@@ -87,7 +84,6 @@ header.hero h1{
 header.hero p.sub{ margin:0; font-size:11px; letter-spacing:.14em; color:#eef4ff; font-weight:600; text-shadow:0 1px 6px rgba(0,0,0,.35); }
 
 footer{
-  /* Bottom footer bar with the motto */
   text-align:center; padding:30px 20px 40px;
   background:linear-gradient(160deg,var(--blue-header),var(--blue-header-dark));
   border-top:3px solid var(--brick);
@@ -98,7 +94,7 @@ footer p{ margin:3px 0; font-size:11px; letter-spacing:.06em; color:#dce7fb; fon
 .subpage-body{ max-width:640px; margin:0 auto; padding:30px 24px 4px; background:#ffffff; text-align:center; }
 .subpage-body p{ color:var(--slate); font-size:.95em; line-height:1.6; }
 
-/* ---------- Intro quote card (the "celebration of friendship..." box) ---------- */
+/* ---------- Intro quote card ---------- */
 .unity-card{
   position:relative; margin:18px auto 0; padding:28px 26px 24px;
   background:linear-gradient(180deg,#fbfcff,#f3f6fc);
@@ -131,34 +127,34 @@ footer p{ margin:3px 0; font-size:11px; letter-spacing:.06em; color:#dce7fb; fon
   background:linear-gradient(150deg,var(--gold),var(--navy-mid));
 }
 
-/* ---------- ALBUMS GRID (the clickable cards on the page) ---------- */
-.albums-section{ max-width:1100px; margin:0 auto; padding:20px 20px 60px; }
+/* ---------- ALBUMS GRID (BIGGER CARDS) ---------- */
+.albums-section{ max-width:1300px; margin:0 auto; padding:20px 20px 60px; }
 .albums-section h2{
   font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600;
-  font-size:1.3em; color:var(--navy-deep); margin:0 0 2px; text-align:center;
+  font-size:1.6em; color:var(--navy-deep); margin:0 0 2px; text-align:center;
 }
-.albums-section .as-sub{ font-size:.72em; letter-spacing:.1em; color:var(--slate); font-weight:600; margin:0 0 20px; text-align:center; }
+.albums-section .as-sub{ font-size:.8em; letter-spacing:.1em; color:var(--slate); font-weight:600; margin:0 0 24px; text-align:center; }
 
 .albums-grid{
-  /* Layout of the album cards: 2 cols on phone, 3 on tablet, 5 on desktop */
+  /* Layout: 1 big card per row on phone, 2 on tablet, 3 on desktop.
+     For 2 per row on phone, change 1fr to repeat(2,1fr). */
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
+  grid-template-columns:1fr;
+  gap:22px;
 }
-@media (min-width:600px){ .albums-grid{ grid-template-columns:repeat(3,1fr); } }
-@media (min-width:900px){ .albums-grid{ grid-template-columns:repeat(5,1fr); } }
+@media (min-width:600px){ .albums-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:1000px){ .albums-grid{ grid-template-columns:repeat(3,1fr); } }
 
 .album-card{
-  /* One album "tile" — cover photo + title + Colors of Unity / CICI label */
-  background:var(--card-bg); border:1px solid var(--line); border-radius:12px;
-  overflow:hidden; cursor:pointer; text-align:left;
-  box-shadow:0 6px 16px rgba(13,42,92,.10);
+  background:var(--card-bg); border:1px solid var(--line); border-radius:16px;
+  overflow:hidden; cursor:pointer; text-align:left; padding:0; font-family:inherit;
+  box-shadow:0 8px 20px rgba(13,42,92,.12);
   transition:transform .2s ease, box-shadow .2s ease;
 }
 .album-card:hover, .album-card:focus-visible{
-  transform:translateY(-4px); box-shadow:0 14px 28px rgba(13,42,92,.20);
+  transform:translateY(-4px); box-shadow:0 16px 32px rgba(13,42,92,.22);
 }
-.album-card .cover{ position:relative; width:100%; aspect-ratio:4/3; background:var(--sky); overflow:hidden; }
+.album-card .cover{ position:relative; width:100%; aspect-ratio:16/10; background:var(--sky); overflow:hidden; }
 .album-card .cover img{ width:100%; height:100%; object-fit:cover; display:block; }
 .album-card .cover .ph{
   width:100%; height:100%; display:flex; align-items:center; justify-content:center;
@@ -166,15 +162,14 @@ footer p{ margin:3px 0; font-size:11px; letter-spacing:.06em; color:#dce7fb; fon
   font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1em;
 }
 .album-card .count{
-  position:absolute; top:8px; right:8px; background:rgba(8,25,55,.72); color:#fff;
-  font-size:.62em; font-weight:700; letter-spacing:.03em; padding:3px 8px; border-radius:20px;
+  position:absolute; top:12px; right:12px; background:rgba(8,25,55,.72); color:#fff;
+  font-size:.8em; font-weight:700; letter-spacing:.03em; padding:5px 12px; border-radius:20px;
 }
-.album-card .meta{ padding:10px 12px 12px; }
-.album-card .meta h3{ margin:0; font-size:.86em; font-weight:700; color:var(--navy-deep); }
-.album-card .meta p{ margin:3px 0 0; font-size:.66em; color:var(--slate); font-weight:600; letter-spacing:.02em; }
+.album-card .meta{ padding:16px 18px 18px; }
+.album-card .meta h3{ margin:0; font-size:1.15em; font-weight:700; color:var(--navy-deep); }
+.album-card .meta p{ margin:5px 0 0; font-size:.82em; color:var(--slate); font-weight:600; letter-spacing:.02em; }
 
 .gallery-overlay{
-  /* Full-screen panel that opens when you tap an album — shows the grid of thumbnails inside it */
   position:fixed; inset:0; z-index:100; background:rgba(6,16,36,.94);
   display:none; flex-direction:column;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
@@ -212,7 +207,7 @@ footer p{ margin:3px 0; font-size:11px; letter-spacing:.06em; color:#dce7fb; fon
   border:1px solid rgba(255,255,255,.5);
 }
 
-/* ---------- Lightbox (full-image / video viewer) ---------- */
+/* ---------- Lightbox ---------- */
 .lightbox{
   position:fixed; inset:0; z-index:200; background:rgba(4,10,24,.96);
   display:none; align-items:center; justify-content:center;
@@ -242,22 +237,21 @@ footer p{ margin:3px 0; font-size:11px; letter-spacing:.06em; color:#dce7fb; fon
 <nav class="topbar">
   <a class="brand" href="index.html">
     <div class="mark">
-      <img src="logo.jpg" alt="ISUFST Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <img src="logo.png" alt="ISUFST Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
       <span style="display:none;">IS</span>
     </div>
     <div class="word"><b>ISUFST</b><small>SAN ENRIQUE CAMPUS</small></div>
   </a>
   <div class="navlinks">
-    <a class="navbtn" href="index.html">campus Leadership</a>
+    <a class="navbtn" href="index.html">Home</a>
     <a class="navbtn active" href="cici.html">AKWE</a>
   </div>
 </nav>
 
-<!-- ===================== COVER PHOTO / TITLE BANNER =====================
-     Needs a file named cover.jpg in the same folder as this page. -->
+<!-- ===================== COVER PHOTO / TITLE BANNER ===================== -->
 <header class="hero">
   <p class="eyebrow">College of Informatics &amp; Computer Innovation</p>
-  <h1>CICI AKWE & Colors of Unity 2026</h1>
+  <h1>CICI AKWE &amp; Colors of Unity 2026</h1>
   <p class="sub">San Enrique Campus</p>
 </header>
 
@@ -266,14 +260,11 @@ footer p{ margin:3px 0; font-size:11px; letter-spacing:.06em; color:#dce7fb; fon
   <div class="unity-card">
     <span class="q">&ldquo;</span>
     <p>CICI AKWE 2026 &amp; Colors of Unity 2026 is a celebration of friendship, diversity, and togetherness, bringing people from different backgrounds and experiences together as one. Like different colors creating a beautiful masterpiece, we each have a unique role in building stronger connections, creating unforgettable memories, and celebrating the spirit of unity.</p>
-    
   </div>
 </div>
 
 <!-- ===================== ALBUM CARDS =====================
-     Each button below is one album tile. data-album="xxx" must match
-     a key in the `albums` object down in the <script> at the bottom —
-     that's where the actual photos/videos for each album are listed. -->
+     data-album="xxx" must match a key in the `albums` object in the script below. -->
 <div class="albums-section">
   <h2>Photo Albums</h2>
   <p class="as-sub">GALLERY</p>
@@ -281,21 +272,21 @@ footer p{ margin:3px 0; font-size:11px; letter-spacing:.06em; color:#dce7fb; fon
   <div class="albums-grid" id="albumsGrid">
     <button class="album-card" data-album="opening">
       <div class="cover"><img src="cover1.jpg" alt="Opening Program"><span class="count" data-count="opening">0 photos</span></div>
-      <div class="meta"><h3>street wear & IT talent</h3><p>CICI AKWE 2026</p></div>
+      <div class="meta"><h3>street wear &amp; IT talent</h3><p>CICI AKWE 2026</p></div>
     </button>
     <button class="album-card" data-album="pageant">
-      <div class="cover"><img src="cover1.jpg" alt="Pageant Night"><span class="count" data-count="pageant">0 photos</span></div>
+      <div class="cover"><img src="cover1.jpg" alt="Winners"><span class="count" data-count="pageant">0 photos</span></div>
       <div class="meta"><h3>Winners🏆</h3><p>CICI AKWE 2026</p></div>
     </button>
-    
+
     <button class="album-card" data-album="funday">
-      <div class="cover"><img src="cover2.jpg" alt="Pageant Night"><span class="count" data-count="pageant">0 photos</span></div>
+      <div class="cover"><img src="cover2.jpg" alt="Fun Day"><span class="count" data-count="funday">0 photos</span></div>
       <div class="meta"><h3>Fun Day</h3><p>Colors of Unity 2026</p></div>
     </button>
-    
+
     <button class="album-card" data-album="sports">
       <div class="cover"><img src="cover2.jpg" alt="Sportsfest"><span class="count" data-count="sports">0 photos</span></div>
-      <div class="meta"><h3>Street Dancing & Field Demonstration</h3><p>Colors of Unity 2026</p></div>
+      <div class="meta"><h3>Street Dancing &amp; Field Demonstration</h3><p>Colors of Unity 2026</p></div>
     </button>
     <button class="album-card" data-album="candid">
       <div class="cover"><img src="cover2.jpg" alt="Candid Shots"><span class="count" data-count="candid">0 photos</span></div>
@@ -311,9 +302,7 @@ footer p{ margin:3px 0; font-size:11px; letter-spacing:.06em; color:#dce7fb; fon
   <p>San Enrique Campus &middot; Est. 2026</p>
 </footer>
 
-<!-- ===================== ALBUM VIEWER OVERLAY =====================
-     Hidden by default. openGallery() below fills #galleryGrid with
-     thumbnails and shows this by adding the "open" class. -->
+<!-- ===================== ALBUM VIEWER OVERLAY ===================== -->
 <div class="gallery-overlay" id="galleryOverlay">
   <div class="gallery-bar">
     <h3 id="galleryTitle">Album</h3>
@@ -324,9 +313,7 @@ footer p{ margin:3px 0; font-size:11px; letter-spacing:.06em; color:#dce7fb; fon
   </div>
 </div>
 
-<!-- ===================== FULL-SIZE LIGHTBOX =====================
-     Hidden by default. Opens when you tap a thumbnail inside an album;
-     shows the image/video full-size with prev/next arrows. -->
+<!-- ===================== FULL-SIZE LIGHTBOX ===================== -->
 <div class="lightbox" id="lightbox">
   <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
   <button class="lb-nav lb-prev" onclick="stepLightbox(-1)" aria-label="Previous">&#8249;</button>
@@ -336,76 +323,69 @@ footer p{ margin:3px 0; font-size:11px; letter-spacing:.06em; color:#dce7fb; fon
 
 <script>
 /* =========================================================
-   ALBUM DATA — THIS IS WHERE YOU ADD/REMOVE PHOTOS & VIDEOS
-   =========================================================
-   Each album below is a key (opening, pageant, funday, sports, candid)
-   matching a data-album="..." button up in the HTML.
-   Each photo/video entry looks like:
+   ALBUM DATA — ADD/REMOVE PHOTOS & VIDEOS HERE
+   Entry formats:
      { type:"image", src:"filename.jpg" }
-     { type:"video", src:"filename.mp4" }   (optionally add poster:"thumb.jpg")
-   Just add or delete lines inside the photos:[ ... ] array. */
+     { type:"video", src:"filename.mp4" }   (optionally poster:"thumb.jpg")
+   ========================================================= */
 const albums = {
   opening: { title:"street wear and IT talent", photos:[
     { type:"image", src:"a.jpg" },
     { type:"image", src:"b.jpg" },
-    { type:"image", src:"c.jpg"}, 
-     { type:"image", src:"d.jpg" },
+    { type:"image", src:"c.jpg" },
+    { type:"image", src:"d.jpg" },
     { type:"image", src:"e.jpg" },
-    { type:"image", src:"f.jpg"}, 
+    { type:"image", src:"f.jpg" },
     { type:"image", src:"g.jpg" },
     { type:"video", src:"1.mp4" }
   ]},
   pageant: { title:"Winners🏆", photos:[
-     { type:"image", src:"j.jpg" },
+    { type:"image", src:"j.jpg" },
     { type:"image", src:"k.jpg" },
-    { type:"image", src:"l.jpg"}, 
-     { type:"image", src:"m.jpg" },
+    { type:"image", src:"l.jpg" },
+    { type:"image", src:"m.jpg" },
     { type:"image", src:"n.jpg" },
-    { type:"image", src:"o.jpg"}, 
-    { type:"image", src:"p.jpg" },
-    
+    { type:"image", src:"o.jpg" },
+    { type:"image", src:"p.jpg" }
   ]},
   funday: { title:"fun day", photos:[
-     { type:"video", src:"6.mp4" },
-     { type:"video", src:"7.mp4" },
-     { type:"video", src:"8.mp4" },
-    
-    
+    { type:"video", src:"6.mp4" },
+    { type:"video", src:"7.mp4" },
+    { type:"video", src:"8.mp4" }
   ]},
-  sports: { title:"Street Dancing & Field Demonsttation", photos:[
-     { type:"video", src:"4.mp4" },
-     { type:"video", src:"5.mp4" },
+  sports: { title:"Street Dancing & Field Demonstration", photos:[
+    { type:"video", src:"4.mp4" },
+    { type:"video", src:"5.mp4" },
     { type:"image", src:"20.jpg" },
-    { type:"image", src:"21.jpg"}, 
-     { type:"image", src:"22.jpg" },
+    { type:"image", src:"21.jpg" },
+    { type:"image", src:"22.jpg" },
     { type:"image", src:"23.jpg" },
-    { type:"image", src:"24.jpg"}, 
+    { type:"image", src:"24.jpg" },
     { type:"image", src:"25.jpg" },
-      { type:"image", src:"26.jpg" },
+    { type:"image", src:"26.jpg" },
     { type:"image", src:"27.jpg" },
-    { type:"image", src:"28.jpg"}, 
-    { type:"image", src:"29.jpg" },
+    { type:"image", src:"28.jpg" },
+    { type:"image", src:"29.jpg" }
   ]},
   candid: { title:"Mr. and Ms. Colors of Unity and the LGBTQIA+", photos:[
-     { type:"video", src:"2.mp4" },
+    { type:"video", src:"2.mp4" },
     { type:"image", src:"q.jpg" },
-    { type:"image", src:"r.jpg"}, 
-     { type:"image", src:"s.jpg" },
+    { type:"image", src:"r.jpg" },
+    { type:"image", src:"s.jpg" },
     { type:"image", src:"t.jpg" },
-    { type:"image", src:"u.jpg"}, 
+    { type:"image", src:"u.jpg" },
     { type:"image", src:"v.jpg" },
-      { type:"image", src:"w.jpg" },
+    { type:"image", src:"w.jpg" },
     { type:"image", src:"x.jpg" },
-    { type:"image", src:"y.jpg"}, 
-    { type:"image", src:"z.jpg" },
+    { type:"image", src:"y.jpg" },
+    { type:"image", src:"z.jpg" }
   ]}
 };
 
 function renderCounts(){
-  /* Fills in "X photos" text on each album card cover, using the counts from `albums` above */
   Object.keys(albums).forEach(k=>{
     const el = document.querySelector('[data-count="'+k+'"]');
-    if(el) el.textContent = albums[k].photos.length + " photos";
+    if(el) el.textContent = albums[k].photos.length + " items";
   });
 }
 renderCounts();
@@ -413,7 +393,6 @@ renderCounts();
 let currentAlbumKey = null;
 let currentLbIndex = 0;
 
-/* ---------- Opens the full-screen album (thumbnail grid) when a card is tapped ---------- */
 function openGallery(key){
   const album = albums[key];
   if(!album) return;
@@ -448,9 +427,8 @@ document.querySelectorAll('.album-card').forEach(card=>{
   card.addEventListener('click', ()=> openGallery(card.dataset.album));
 });
 
-// ---- Lightbox: full-size image / playable video viewer ----
+// ---- Lightbox ----
 function renderLightbox(){
-  /* Draws whichever photo/video is "current" into the big lightbox stage */
   const album = albums[currentAlbumKey];
   if(!album) return;
   const item = album.photos[currentLbIndex];
@@ -477,10 +455,9 @@ function openLightbox(index){
 }
 function closeLightbox(){
   document.getElementById('lightbox').classList.remove('open');
-  document.getElementById('lbStage').innerHTML = ""; // stop any playing video
+  document.getElementById('lbStage').innerHTML = "";
 }
 function stepLightbox(dir){
-  /* Moves to next (dir=1) or previous (dir=-1) item, wrapping around at the ends */
   const album = albums[currentAlbumKey];
   if(!album) return;
   const len = album.photos.length;
@@ -488,7 +465,6 @@ function stepLightbox(dir){
   renderLightbox();
 }
 document.addEventListener('keydown', function(e){
-  /* Keyboard shortcuts while the lightbox is open: Esc closes, arrows navigate */
   if(!document.getElementById('lightbox').classList.contains('open')) return;
   if(e.key === "Escape") closeLightbox();
   if(e.key === "ArrowRight") stepLightbox(1);
